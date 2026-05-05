@@ -82,6 +82,20 @@ section:nth-child(even){background:var(--gray)}
 .stat-num{font-size:2rem;font-weight:600;line-height:1}
 .stat-label{font-size:12px;opacity:0.8;margin-top:6px;letter-spacing:0.03em}
 .stat-label-ne{font-size:13px;opacity:0.9;margin-top:2px;font-family:'Tiro Devanagari Nepali',serif}
+.stat-click{cursor:pointer;transition:transform 0.2s,box-shadow 0.2s}
+.stat-click:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.2)}
+.stat-hint{font-size:11px;opacity:0.7;margin-top:4px}
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:999;align-items:center;justify-content:center}
+.modal-overlay.active{display:flex}
+.modal{background:#fff;border-radius:12px;padding:1.5rem;width:90%;max-width:420px;position:relative;box-shadow:0 8px 32px rgba(0,0,0,0.2)}
+.modal-title{font-family:'Tiro Devanagari Nepali',serif;font-size:1.1rem;color:var(--blue-dark);font-weight:600;margin-bottom:0.25rem}
+.modal-title-en{font-size:12px;color:var(--text-muted);margin-bottom:1rem}
+.modal-divider{width:40px;height:3px;background:var(--gold);margin-bottom:1rem}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.modal-list li{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--blue-light);border-radius:8px;font-family:'Tiro Devanagari Nepali',serif;font-size:14px;color:var(--blue-dark)}
+.modal-list li::before{content:'◆';color:var(--gold);font-size:9px;flex-shrink:0}
+.modal-close{position:absolute;top:12px;right:14px;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--text-muted)}
 
 /* ── TEAM ── */
 .team{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
@@ -181,22 +195,27 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,0.75);text-align:cente
 </div>
 
 <!-- WELCOME -->
+<!-- WELCOME -->
 <section class="section" id="home">
   <div class="section-title">स्वागत छ</div>
   <div class="section-title-en">Welcome</div>
   <div class="divider"></div>
   <p style="font-size:15.5px;color:var(--text);max-width:700px;line-height:1.8">जिल्ला आर्थिक गणना कार्यालय, बझाङ राष्ट्रिय आर्थिक गणना, २०८२ संचालनको लागि स्थापना गरिएका ८४ ओटा कार्यालय मध्ये एक हो। जसले बझाङ जिल्लामा रहेका सम्पूर्ण प्रतिष्ठान तथा व्यवसायको आर्थिक तथा व्यावसायिक तथ्याङ्क संकलन, प्रशोधन र प्रकाशन गर्ने कार्य गर्दछ। यस कार्यालयको उद्देश्य जिल्लाको आर्थिक अवस्थाको सटीक चित्र प्रस्तुत गर्नु हो।</p>
   <p style="font-size:14px;color:var(--text-muted);max-width:700px;line-height:1.8;margin-top:1rem">The District Economic Census Office, Bajhang is a key government body responsible for collecting, processing and publishing economic and business statistics in Bajhang district.</p>
+
   <div class="stats">
     <div class="stat">
       <div class="stat-num">६१००+</div>
       <div class="stat-label-ne">प्रतिष्ठान/व्यवसाय गणना</div>
       <div class="stat-label">Businesses Counted</div>
     </div>
-    <div class="stat">
+
+    <!-- १२ स्थानीय तह — click गर्दा list देखिन्छ -->
+    <div class="stat stat-click" onclick="document.getElementById('palika-modal').classList.add('active')">
       <div class="stat-num">१२</div>
       <div class="stat-label-ne">स्थानीय तह</div>
       <div class="stat-label">Local Levels</div>
+      <div class="stat-hint">👆 थिच्नुस्</div>
     </div>
     <div class="stat">
       <div class="stat-num">५+</div>
@@ -210,6 +229,30 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,0.75);text-align:cente
     </div>
   </div>
 </section>
+  <!-- PALIKA MODAL -->
+<div class="modal-overlay" id="palika-modal" onclick="if(event.target===this)this.classList.remove('active')">
+  <div class="modal">
+    <button class="modal-close" onclick="document.getElementById('palika-modal').classList.remove('active')">✕</button>
+    <div class="modal-title">बझाङका स्थानीय तहरू</div>
+    <div class="modal-title-en">Local Levels of Bajhang</div>
+    <div class="modal-divider"></div>
+    <ul class="modal-list">
+       <li>साइपाल गाउँपालिका</li>
+      <li>बुंगल नगरपालिका</li>
+      <li>सूर्मा गाउँपालिका</li>
+      <li>तलकोट गाउँपालिका</li>
+      <li>मष्टा गाउँपालिका</li>
+      <li>जयपृथ्वी नगरपालिका</li>
+      <li>छबिस पाथिभेरा गाउँपालिका</li>
+      <li>दुर्गाथली गाउँपालिका</li>
+      <li>केदारस्यूँ गाउँपालिका</li>
+      <li>बित्थदचिर गाउँपालिका</li>
+      <li>थलारा गाउँपालिका</li>
+      <li>खप्तड छान्ना गाउँपालिका</li>
+    </ul>
+  </div>
+</div>
+ 
 
 <!-- ABOUT -->
 <section class="section" id="about">
